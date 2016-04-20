@@ -1,0 +1,19 @@
+CC=g++
+INCLUDEDIR=../include
+OBJDIR=obj
+CFLAGS=-Wall -I$(INCLUDEDIR)
+
+_DEPS = BoundedBuffer.h
+_OBJ = main.o BoundedBuffer.o
+
+DEPS = $(patsubst %,$(INCLUDEDIR)/%,$(_DEPS))
+OBJ = $(patsubst %,$(OBJDIR)/%,$(_OBJ))
+
+$(OBJDIR)/%.o: %.cpp $(DEPS)
+	$(CC) -o $@ -c $< $(CFLAGS)
+izvrsniFajl: $(OBJ)
+	$(CC) -o $@ $^ $(CFLAGS)
+.PHONY: clean
+clean:
+	rm -f $(OBJDIR)/*.o
+	rm -f izvrsniFajl
